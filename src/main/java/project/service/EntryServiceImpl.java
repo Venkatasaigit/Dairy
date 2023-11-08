@@ -8,10 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import project.entity.Feeds;
+import project.entity.Memory;
 import project.entity.User;
-import project.jparepository.EntryRepository;
+
 import project.jparepository.UserRepository;
+import project.jparepository.memoryRepository;
 import project.repository.EntryService;
 
 
@@ -20,35 +21,35 @@ import project.repository.EntryService;
 public class EntryServiceImpl implements EntryService {
 	
 	@Autowired
-	private EntryRepository enteryDao;
+	private memoryRepository enteryDao;
 	
 	@Autowired
 	private UserRepository userdao;
 
 	@Override
-	public Feeds saveEntry(Feeds feeds) {
-		enteryDao.save(feeds);
-		return feeds; 
+	public Memory saveEntry(Memory memory) {
+		enteryDao.save(memory);
+		return memory; 
 	}
 	
 
 	@Override
-	public List<Feeds> findAll() {
-		List<Feeds> notes= enteryDao.findAll();
+	public List<Memory> findAll() {
+		List<Memory> notes= enteryDao.findAll();
 		return notes;
 	}
 
 	@Override
-	public Feeds findById(long id) {
-		Feeds note=enteryDao.findById(id).get();
+	public Memory findById(Long id) {
+		Memory note=enteryDao.findById(id).get();
 		return note;
 	}
 
 
 	@Override
-	public Feeds updateEntry(long id, Feeds feeds) {
+	public Memory updateEntry(Long id, Memory Memory) {
 		try {
-			Feeds note=enteryDao.findById(id).get();
+			Memory note=enteryDao.findById(id).get();
 			if(note.getClass()!=null)
 			{
 				note.setDesc(note.getDesc());
@@ -63,7 +64,7 @@ public class EntryServiceImpl implements EntryService {
 
 
 	@Override
-	public void deleteEntry(long id) {
+	public void deleteEntry(Long id) {
 		try{
 			enteryDao.deleteById(id);
 		}
@@ -75,23 +76,25 @@ public class EntryServiceImpl implements EntryService {
 
 
 	@Override
-	public String assignUserToNotes(long uid, long fid) {
+	public String assignUserToNotes(Long uid, Long fid) {
 		User u=userdao.findById(uid).orElseThrow(()->
 		new ResourceNotFoundException("User", "Id", uid));
 		
-		Feeds f=enteryDao.findById(fid).orElseThrow(()->
-		new ResourceNotFoundException("Feeds", "Id", fid));
+		Memory f=enteryDao.findById(fid).orElseThrow(()->
+		new ResourceNotFoundException("Memory", "Id", fid));
 		
-		List<Feeds> notes=new ArrayList<>();
+		List<Memory> notes=new ArrayList<>();
 		notes.add(f);		
 		//assign notes to user
 		u.getId();
 		
 		//assign user to notes
-		f.getId();
+		//f.getId();
 		
 		enteryDao.save(f);
 		return "Students assigned to teacher successfully";
 	}
+
+
 
 }

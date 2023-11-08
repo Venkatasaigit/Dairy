@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import project.entity.Feeds;
+
 import project.entity.User;
 import project.jparepository.UserRepository;
 import project.repository.UserService;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUser(long id,User user) {
+	public User updateUser(Long id,User user) {
 		try {
 			User note=userdao.findById(id).get();
 			if(note.getUsername()!=null)
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(long id,User user) {
+	public void deleteUser(Long id,User user) {
 		try{
 			userdao.deleteById(id);
 		}
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findById(long id) {
+	public User findById(Long id) {
 		User note=userdao.findById(id).get();
 		return note;
 		

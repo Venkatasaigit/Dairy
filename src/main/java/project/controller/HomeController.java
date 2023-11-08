@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import project.entity.Feeds;
+import project.entity.Memory;
 import project.entity.User;
 import project.service.EntryServiceImpl;
 import project.service.UserServiceImpl;
@@ -23,34 +23,36 @@ public class HomeController {
 	private EntryServiceImpl noteservice;
 	
 	@PostMapping("/note")
-	public Feeds saveEntry(@RequestBody Feeds feeds) {
-		return noteservice.saveEntry(feeds);
+	public Memory saveEntry(@RequestBody Memory memory) {
+		return noteservice.saveEntry(memory);
 	}
 	
 	@PutMapping("/note/{id}")
-	Feeds updateEntry(@PathVariable("id")long id,@RequestBody Feeds feeds) {
-		return noteservice.updateEntry(id, feeds);
+	Memory updateEntry(@PathVariable("id")Long id,@RequestBody Memory memory) {
+		return noteservice.updateEntry(id, memory);
 	}
 	
 	@DeleteMapping("/note/{id}")
-	public void deleteEntry(@PathVariable("id")long id) {
+	public void deleteEntry(@PathVariable("id")Long id) {
 		noteservice.deleteEntry(id);
 	}
 	
 	@PostMapping("/adduser/{id}/{id}")
-	public String assignUserToNotes(@PathVariable("id")long uid,@PathVariable("id") long fid) {
+	public String assignUserToNotes(@PathVariable("id")Long uid,@PathVariable("id") Long fid) {
 		return noteservice.assignUserToNotes(uid, fid);
 	}
 	
 	@GetMapping("/notes")
-	public List<Feeds>findAll(){
+	public List<Memory>findAll(){
 		return noteservice.findAll();
 	}
 	
 	@GetMapping("/notes/{id}")
-	public Feeds findById(@PathVariable("id")long id) {
+	public Memory findById(@PathVariable("id")long id) {
 		return noteservice.findById(id);
 	}
+
+
 	//=====user
 	@Autowired
 	private UserServiceImpl userservice;
@@ -61,17 +63,17 @@ public class HomeController {
 	}
 	
 	@PutMapping("/User/{id}")
-	public User updateUser (@PathVariable("id")long id,@RequestBody User user) {
+	public User updateUser (@PathVariable("id")Long id,@RequestBody User user) {
 		return userservice.updateUser(id, user);
 	}
 	
 	@DeleteMapping("/deleteuser/{id}")
-	public void deleteUser(@PathVariable("id")long id,User user) {
+	public void deleteUser(@PathVariable("id")Long id,User user) {
 		 userservice.deleteUser(id, user);
 	}
 	
 	@GetMapping("/user/{id}")
-	public User findByuserId(@PathVariable("id")long id) {
+	public User findByuserId(@PathVariable("id")Long id) {
 		return userservice.findById(id);
 	}
 	

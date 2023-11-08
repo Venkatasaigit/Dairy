@@ -9,9 +9,9 @@ import project.entity.User;
 public interface UserService {
 	
 	public  User saveUser(User user);
-	public User updateUser (long id,User user);
-	public void deleteUser(long id,User user);
-	public User findById(long id);
+	public User updateUser (Long id,User user);
+	public void deleteUser(Long id,User user);
+	public User findById(Long id);
 	public List<User> findAll();
 	
 
